@@ -6,7 +6,7 @@ const argv = require('minimist')(Bun.argv.slice(2));
 const file = fs.readFileSync(argv.file, 'utf8')
 const sim = JSON.parse(file)
 
-const events = sim.result.events.map((event) => {
+const events = sim.result.events.map((event: any) => {
     const e = xdr.DiagnosticEvent.fromXDR(event, 'base64')
 
     if (e.event().type().name === 'diagnostic')
@@ -16,7 +16,7 @@ const events = sim.result.events.map((event) => {
 })
 
 const events_and_return_value_size = (
-    events.reduce((accumulator, currentValue) => accumulator + currentValue, 0) // events
+    events.reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0) // events
     + Buffer.from(sim.result.results[0].xdr, 'base64').length // return value size
 )
 
