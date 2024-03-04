@@ -29,7 +29,7 @@ export function sorobill(sim: SorobanRpc.Api.SimulateTransactionSuccessResponse,
 
     const metrics: any = {
         mem_byte: Number(sim.cost.memBytes),
-        cpu_insns: Number(sim.cost.cpuInsns)
+        cpu_insn: Number(sim.cost.cpuInsns)
     }
 
     tx?.resultMetaXdr
