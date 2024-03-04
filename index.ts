@@ -29,6 +29,7 @@ export function sorobill(sim: SorobanRpc.Api.SimulateTransactionSuccessResponse,
 
     const metrics: any = {
         mem_byte: Number(sim.cost.memBytes),
+        cpu_insns: Number(sim.cost.cpuInsns)
     }
 
     tx?.resultMetaXdr
@@ -71,7 +72,7 @@ export function sorobill(sim: SorobanRpc.Api.SimulateTransactionSuccessResponse,
         )
 
     const stats = {
-        cpu_insns: Number(resources.instructions()),
+        cpu_insns: metrics.cpu_insns,
         mem_bytes: metrics.mem_byte,
         entry_reads: resources.footprint().readOnly().length,
         entry_writes: resources.footprint().readWrite().length,
