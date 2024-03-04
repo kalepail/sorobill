@@ -72,7 +72,7 @@ export function sorobill(sim: SorobanRpc.Api.SimulateTransactionSuccessResponse,
         )
 
     const stats = {
-        cpu_insns: metrics.cpu_insns,
+        cpu_insns: metrics.cpu_insn,
         mem_bytes: metrics.mem_byte,
         entry_reads: resources.footprint().readOnly().length,
         entry_writes: resources.footprint().readWrite().length,
