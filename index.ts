@@ -1,6 +1,6 @@
 import { SorobanRpc, scValToNative } from '@stellar/stellar-sdk'
 
-export function sorobill(sim: SorobanRpc.Api.SimulateTransactionSuccessResponse, tx: SorobanRpc.Api.GetSuccessfulTransactionResponse) {
+export function sorobill(sim: SorobanRpc.Api.SimulateTransactionSuccessResponse, tx?: SorobanRpc.Api.GetSuccessfulTransactionResponse) {
     const events = sim.events.map((e) => {
         const event = e.event()
 
@@ -30,9 +30,9 @@ export function sorobill(sim: SorobanRpc.Api.SimulateTransactionSuccessResponse,
         mem_byte: Number(sim.cost.memBytes),
     }
 
-    let entries: number[] = []
+    let entries: number[] | undefined = []
 
-    tx.resultMetaXdr
+    tx?.resultMetaXdr
         .v3()
         .sorobanMeta()
         ?.diagnosticEvents()
@@ -57,7 +57,7 @@ export function sorobill(sim: SorobanRpc.Api.SimulateTransactionSuccessResponse,
             }
         })
 
-    entries = tx.resultMetaXdr
+    entries = tx?.resultMetaXdr
         .v3()
         .operations()
         .flatMap((op) =>
@@ -100,7 +100,7 @@ export function sorobill(sim: SorobanRpc.Api.SimulateTransactionSuccessResponse,
             (see https://discord.com/channels/897514728459468821/966788672164855829/1212887348191166484)
             If you're submitting a wasm upload up the max value is likely the wasm binary size
         */
-        max_entry_bytes: tx ? entries.length ? Math.max(...entries) : 0 : undefined,
+        max_entry_bytes: tx ? entries?.length ? Math.max(...entries) : 0 : undefined,
         max_key_bytes: metrics.max_rw_key_byte,
     }
 
