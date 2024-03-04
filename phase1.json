@@ -1,0 +1,21 @@
+{
+    "contractDataEntrySizeBytes": 65536,
+    "contractCompute": {
+        "txMaxInstructions": "100000000",
+        "txMemoryLimit": 41943040
+    },
+    "contractMaxSizeBytes": 65536,
+    "contractLedgerCost": {
+        "txMaxReadLedgerEntries": 40,
+        "txMaxReadBytes": 133120,
+        "txMaxWriteLedgerEntries": 25,
+        "txMaxWriteBytes": 66560
+    },
+    "contractEvents": {
+        "txMaxContractEventsSizeBytes": 8198
+    },
+    "contractDataKeySizeBytes": 200,
+    "contractBandwidth": {
+        "txMaxSizeBytes": 71680
+    }
+}
