@@ -1,4 +1,5 @@
 # sorobill
+[Relevant blog post](https://kalepail.com/blockchain/show-me-the-bill-part-2)
 
 ## Step 1
 Run a `--limits unlimited` local network.
