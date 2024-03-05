@@ -1,6 +1,22 @@
 # sorobill
 
-## Without a TX
+## Step 1
+Run a `--limits unlimited` local network.
+```bash
+docker run --rm -i \
+    -p "8000:8000" \
+    --name stellar \
+    stellar/quickstart:pr579-latest \
+    --local \
+    --limits unlimited \
+    --enable-soroban-rpc \
+    --enable-soroban-diagnostic-events
+```
+
+## Step 2
+Simulate a transaction, optionally submit it, and pass forward the successful results to the `sorobill` method.
+
+### Without a TX
 ```ts
 import { Account, Keypair, Networks, Operation, SorobanRpc, TransactionBuilder, nativeToScVal, xdr } from "@stellar/stellar-sdk";
 import { sorobill } from "sorobill";
@@ -44,8 +60,22 @@ const simRes = await rpc.simulateTransaction(simTx)
 if (SorobanRpc.Api.isSimulationSuccess(simRes))
     console.log(sorobill(simRes));
 ```
+```js
+{
+  cpu_insns: 122636493,
+  mem_bytes: 46670477,
+  entry_reads: 43,
+  entry_writes: 21,
+  read_bytes: 143508,
+  write_bytes: 68452,
+  events_and_return_bytes: 8272,
+  min_txn_bytes: undefined,
+  max_entry_bytes: undefined,
+  max_key_bytes: 352,
+}
+```
 
-## With a TX
+### With a TX
 ```ts
 import { Account, Keypair, Networks, Operation, SorobanRpc, TransactionBuilder, nativeToScVal } from "@stellar/stellar-sdk";
 import { sorobill } from "sorobill";
@@ -111,5 +141,19 @@ if (SorobanRpc.Api.isSimulationSuccess(simRes)) {
         if (getRes.status === 'SUCCESS')
             console.log(await sorobill(simRes, getRes));
     }
+}
+```
+```js
+{
+  cpu_insns: 130351778,
+  mem_bytes: 47448018,
+  entry_reads: 43,
+  entry_writes: 21,
+  read_bytes: 143508,
+  write_bytes: 68452,
+  events_and_return_bytes: 8272,
+  min_txn_bytes: 76132,
+  max_entry_bytes: 66920,
+  max_key_bytes: 352,
 }
 ```
